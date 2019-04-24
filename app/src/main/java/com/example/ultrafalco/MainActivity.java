@@ -15,11 +15,16 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.leaderboard_button).setOnClickListener(this::showLeaderboard);
         findViewById(R.id.settings_button).setOnClickListener(this::showSettings);
+        findViewById(R.id.start_button).setOnClickListener(this::startGame);
     }
     void showLeaderboard(@SuppressWarnings("unused") View view) {
         startActivity(new Intent(this, LeaderboardActivity.class));
     }
     void showSettings(@SuppressWarnings("unused") View view) {
         startActivity(new Intent(this, SettingsActivity.class));
+    }
+    void startGame(@SuppressWarnings("unused") View view) {
+        startActivity(new Intent(this, GameActivity.class));
+        //finish();
     }
 }
