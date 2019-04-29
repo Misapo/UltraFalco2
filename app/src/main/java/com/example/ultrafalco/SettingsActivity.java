@@ -3,6 +3,7 @@ package com.example.ultrafalco;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.SeekBar;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -12,6 +13,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_settings);
 
         sPref = getPreferences(MODE_PRIVATE);
