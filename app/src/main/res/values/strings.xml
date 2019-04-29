@@ -5,6 +5,7 @@
     <string name="start_button">Start Game</string>
     <string name="leaderboard_button">High Scores</string>
     <string name="settings_button">Settings</string>
+    <string name="payment_button">Payment</string>
     <string name="leaderboard_title">Leaderboard</string>
     <string name="settings_title">Settings</string>
     <string name="volume_text">Volume</string>
