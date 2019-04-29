@@ -27,4 +27,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, GameActivity.class));
         //finish();
     }
+    void payGame(@SuppressWarnings("unused") View view) {
+        startActivity(new Intent(this, PaymentActivity.class));
+        //finish();
+    }
 }
