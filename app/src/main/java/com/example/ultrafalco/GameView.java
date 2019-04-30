@@ -32,8 +32,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (c == null) {
             return;
         }
-        manager.update();
+        boolean cont = manager.update();
         manager.draw(c);
+
+        if (!cont) {
+            thread.setRunning(false);
+        }
     }
 
     @Override
