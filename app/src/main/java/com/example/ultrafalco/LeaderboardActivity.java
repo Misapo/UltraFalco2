@@ -17,7 +17,11 @@ public class LeaderboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_leaderboard);
 
         LinearLayout layout = findViewById(R.id.leaderboard_layout);
-        for (int i = 0; i < 10; i++) {
+            String ayushRecord = String.format(Locale.getDefault(), "%d. %s", 1, "Ayush Nair");
+            layout.addView(createLeaderboardPosition(ayushRecord));
+            String danRecord = String.format(Locale.getDefault(), "%d. %s", 2, "Daniel Cesarz");
+            layout.addView(createLeaderboardPosition(danRecord));
+        for (int i = 1; i < 10; i++) {
             String text = String.format(Locale.getDefault(), "%d. %s", i + 1, "placeholder");
             layout.addView(createLeaderboardPosition(text));
         }

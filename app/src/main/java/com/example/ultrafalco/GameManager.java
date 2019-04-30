@@ -19,7 +19,8 @@ public class GameManager implements SensorEventListener {
     private List<Ball> missiles;
     private final Vector center;
 
-    private final Paint RED, BLUE;
+    private final Paint RED, BLUE, BLACK, WHITE, PINK, GREEN;
+    private final static List<Paint> colors = new ArrayList();
 
     GameManager(Point s) {
         xAcc = 0;
@@ -33,15 +34,26 @@ public class GameManager implements SensorEventListener {
         RED.setTextSize(80);
         BLUE = initPaint(0, 0, 255);
         BLUE.setAlpha(200);
+        BLACK = initPaint(0, 0, 0);
+        BLACK.setTextSize(80);
+        WHITE = initPaint(255, 255, 255);
+        WHITE.setTextSize(80);
+        PINK = initPaint(206, 59, 199);
+        PINK.setAlpha(200);
+        GREEN = initPaint(79, 206, 59);
+        GREEN.setAlpha(200);
+        //colors.add(BLUE);
+        //colors.add(PINK);
+        //colors.add(GREEN);
     }
 
-    boolean update() {
+    int update() {
         frameCounter++;
 
-        if (Math.random() < Math.max(0.01, Math.cbrt(frameCounter) / 400.0)) {
+        if (Math.random() < Math.max(0.02, Math.cbrt(frameCounter) / 400.0)) {
             Vector pos = Vector.add(Vector.random2D(size.y), new Vector(size.x / 2.0, size.y / 2.0));
             Vector vel = Vector.add(Vector.random2D(10), Vector.subtract(ball.pos, pos));
-            vel.setMagnitude(Math.max(1, Math.random() * 5));
+            vel.setMagnitude(Math.max(1, Math.random() * 4));
             missiles.add(new Ball(pos, vel, (int) (Math.random() * 90 + 20)));
         }
 
@@ -55,18 +67,23 @@ public class GameManager implements SensorEventListener {
             if (b.pos.distanceSquared(center) < size.y * size.y * 5) {
                 b.update();
                 if (b.pos.distance(ball.pos) < (b.rad + ball.rad)) {
-                    return false;
+                    return (int) frameCounter;
                 }
             } else {
                 missiles.remove(i);
             }
         }
-        return true;
+        return -1;
+    }
+
+    public static Paint randomPick() {
+        return colors.get((int) (Math.random() * colors.size()));
     }
 
     void draw(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
-        canvas.drawText("" + (frameCounter), 100, 100, RED);
+        canvas.drawColor(Color.BLACK);
+        canvas.drawText("" + (frameCounter), 20, 100, WHITE);
+        //canvas.drawRect(20, 100, 200, 200, BLACK);
         canvas.drawCircle(ball.pos.getX(), ball.pos.getY(), ball.rad, RED);
         missiles.forEach(r -> canvas.drawCircle(r.pos.getX(), r.pos.getY(), r.rad, BLUE));
     }
