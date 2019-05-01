@@ -1,18 +1,21 @@
 package com.example.ultrafalco;
 
+import android.graphics.Paint;
 import android.graphics.Point;
 
 class Ball {
     int rad;
     Vector pos, vel;
+    Paint color;
 
-    Ball(Vector p, Vector v, int r) {
+    Ball(Vector p, Vector v, int r, Paint c) {
         pos = p;
         vel = v;
         rad = r;
+        color = c;
     }
     Ball(Vector p, int r) {
-        this(p, new Vector(), r);
+        this(p, new Vector(), r, null);
     }
     void update() {
         pos.add(vel);

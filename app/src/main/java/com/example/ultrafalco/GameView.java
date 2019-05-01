@@ -36,8 +36,22 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         manager.draw(c);
 
         if (cont > 0) {
-            thread.setRunning(false);
+            stopThread();
+            manager.updateLeaderboard(c, cont);
         }
+    }
+
+    private void stopThread() {
+//        boolean retry = true;
+//        while (retry) {
+//            try {
+                thread.setRunning(false);
+//                thread.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            retry = false;
+//        }
     }
 
     @Override
@@ -53,15 +67,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         senMan.unregisterListener(manager);
-        boolean retry = true;
-        while (retry) {
-            try {
-                thread.setRunning(false);
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            retry = false;
-        }
+        stopThread();
     }
 }
