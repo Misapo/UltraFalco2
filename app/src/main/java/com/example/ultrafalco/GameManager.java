@@ -36,7 +36,7 @@ public class GameManager implements SensorEventListener {
         xAcc = 0;
         yAcc = 0;
         sPref = preferences;
-        sen = sPref.getInt("Volume", 6);
+        sen = sPref.getInt("Volume", 6) + 1;
 
         size = s;
         center = new Vector(size.x / 2.0, size.y / 2.0);
@@ -111,15 +111,17 @@ public class GameManager implements SensorEventListener {
         if (scores == null) {
             return;
         }
-        List<String> scoreArr = new ArrayList<>(Arrays.asList(scores.stream().sorted().toArray(String[]::new)));
+        List<String> scoreArr = new ArrayList<>(Arrays.asList(scores.stream().sorted((s1, s2) ->
+                Integer.valueOf(s1.split(": ")[0]).compareTo(Integer.valueOf(s2.split(": ")[0]))).toArray(String[]::new)));
         if (scoreArr.size() < 10) {
             scoreArr.add(getLeaderboardString(score));
         } else {
             for (int i = 0; i < scoreArr.size(); i++) {
                 int leaderScore = Integer.parseInt(scoreArr.get(i).split(": ")[0]);
                 if (score > leaderScore) {
-                    scoreArr.add(i, getLeaderboardString(score));
-                    scoreArr.remove(scoreArr.size() - 1);
+                    scoreArr.add(getLeaderboardString(score));
+                    scoreArr.remove(scoreArr.stream().min((s1, s2) ->
+                            Integer.valueOf(s1.split(": ")[0]).compareTo(Integer.valueOf(s2.split(": ")[0]))).get());
                     break;
                 }
             }
