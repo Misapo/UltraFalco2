@@ -8,6 +8,6 @@
     <string name="payment_button">Payment</string>
     <string name="leaderboard_title">Leaderboard</string>
     <string name="settings_title">Settings</string>
-    <string name="volume_text">Volume</string>
+    <string name="volume_text">Sensitivity</string>
     <string name="score_text">Score</string>
 </resources>

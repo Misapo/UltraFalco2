@@ -16,10 +16,10 @@ public class SettingsActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_settings);
 
-        sPref = getPreferences(MODE_PRIVATE);
+        sPref = getSharedPreferences("sharedPref", MODE_PRIVATE);
         prefVol = getString(R.string.preferences_volume);
         volBar = findViewById(R.id.volume_bar);
-        volBar.setProgress(sPref.getInt(prefVol, 50));
+        volBar.setProgress(sPref.getInt(prefVol, 6));
     }
 
     @Override

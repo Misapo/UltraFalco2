@@ -20,13 +20,16 @@ public class LeaderboardActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_leaderboard);
 
-        Set<String> scores = getPreferences(MODE_PRIVATE).getStringSet("Scores", new HashSet<>());
+        Set<String> scores = getSharedPreferences("sharedPref", MODE_PRIVATE).getStringSet("Scores", new HashSet<>());
         LinearLayout layout = findViewById(R.id.leaderboard_layout);
 
-        layout.addView(createLeaderboardPosition(getPreferences(MODE_PRIVATE).getString("hi", "nope")));
+//        layout.addView(createLeaderboardPosition(getPreferences(MODE_PRIVATE).getString("hi", "nope")));
 
-        if (scores != null)
-            scores.stream().sorted().forEach(s -> layout.addView(createLeaderboardPosition(s)));
+        if (scores != null) {
+            scores.stream().sorted((s1, s2) ->
+                Integer.valueOf(s1.split(": ")[0]).compareTo(Integer.valueOf(s2.split(": ")[0]))
+            ).forEach(s -> layout.addView(createLeaderboardPosition(s), 0));
+        }
     }
     private TextView createLeaderboardPosition(String s) {
         TextView position = new TextView(this);

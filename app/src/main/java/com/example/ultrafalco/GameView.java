@@ -16,7 +16,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameManager manager;
 
     public GameView(Context context) {
-        this(context, ((Activity) context).getPreferences(Context.MODE_PRIVATE));
+        this(context, context.getSharedPreferences("sharedPref", Context.MODE_PRIVATE));
     }
     public GameView(Context context, SharedPreferences sPref) {
         super(context);

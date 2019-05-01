@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //findViewById(R.id.leaderboard_button).setOnClickListener(this::showLeaderboard);
-        //findViewById(R.id.settings_button).setOnClickListener(this::showSettings);
+        findViewById(R.id.leaderboard_button).setOnClickListener(this::showLeaderboard);
+        findViewById(R.id.settings_button).setOnClickListener(this::showSettings);
         findViewById(R.id.start_button).setOnClickListener(this::startGame);
     }
     void showLeaderboard(@SuppressWarnings("unused") View view) {

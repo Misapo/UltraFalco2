@@ -124,11 +124,8 @@ public class GameManager implements SensorEventListener {
                 }
             }
         }
-        //scoreArr.add("DJALSKJDLA");
         Set<String> set = new HashSet<>(scoreArr);
-        //set.add("DJALSKJDLA");
         SharedPreferences.Editor editor = sPref.edit();
-        editor.putString("hi", "test");
         editor.putStringSet("Scores", set);
         editor.apply();
     }

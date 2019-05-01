@@ -29,14 +29,14 @@
         android:padding="@dimen/main_menu_button_padding"
         android:text="@string/start_button"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/leaderboard_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leaderboard_title" />
     <!--app:layout_constraintBottom_toTopOf="@+id/leaderboard_button"-->
 
-    <!--<Button
+    <Button
         android:id="@+id/leaderboard_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -67,20 +67,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leaderboard_button" />
-
-    <Button
-        android:id="@+id/pay_button"
-        style="@android:style/Widget.Button"
-        android:layout_width="355dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="161dp"
-        android:layout_marginBottom="74dp"
-        android:text="@string/payment_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_button" />-->
 
 </android.support.constraint.ConstraintLayout>
