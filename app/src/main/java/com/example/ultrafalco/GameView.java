@@ -2,6 +2,7 @@ package com.example.ultrafalco;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.hardware.Sensor;
@@ -15,15 +16,33 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameManager manager;
 
     public GameView(Context context) {
+        this(context, ((Activity) context).getPreferences(Context.MODE_PRIVATE));
+    }
+    public GameView(Context context, SharedPreferences sPref) {
         super(context);
         getHolder().addCallback(this);
         thread = new MainThread(getHolder(), this);
         setFocusable(true);
         senMan = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
+        this.setOnTouchListener((v, event) -> {
+            v.performClick();
+            if (!thread.isAlive()) {
+                manager.reset();
+                thread = new MainThread(getHolder(), this);
+                thread.start();
+            }
+            return true;
+        });
+
         Point size = new Point();
         ((Activity) context).getWindowManager().getDefaultDisplay().getSize(size);
-        manager = new GameManager(size);
+        manager = new GameManager(size, sPref);
+    }
+
+    @Override
+    public boolean performClick() {
+        return super.performClick();
     }
 
     @Override
@@ -42,22 +61,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void stopThread() {
-//        boolean retry = true;
-//        while (retry) {
-//            try {
-                thread.setRunning(false);
-//                thread.join();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            retry = false;
-//        }
+        thread.interrupt();
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         senMan.registerListener(manager, senMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
-        thread.setRunning(true);
         thread.start();
     }
 

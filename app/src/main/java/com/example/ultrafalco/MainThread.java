@@ -6,15 +6,11 @@ import android.view.SurfaceHolder;
 public class MainThread extends Thread {
     private final SurfaceHolder surfaceHolder;
     private GameView gameView;
-    private boolean running;
 
     MainThread(SurfaceHolder s, GameView g) {
         super();
         surfaceHolder = s;
         gameView = g;
-    }
-    void setRunning(boolean isRunning) {
-        running = isRunning;
     }
     @Override
     public void run() {
@@ -23,7 +19,7 @@ public class MainThread extends Thread {
         long targetTime = 1000 / targetFPS;
         Canvas canvas;
 
-        while (running) {
+        while (!Thread.interrupted()) {
             startTime = System.nanoTime();
             canvas = null;
 
@@ -33,14 +29,14 @@ public class MainThread extends Thread {
                     gameView.draw(canvas);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             finally {
                 if (canvas != null) {
                     try {
                         surfaceHolder.unlockCanvasAndPost(canvas);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        // e.printStackTrace();
                     }
                 }
             }
@@ -49,7 +45,9 @@ public class MainThread extends Thread {
             waitTime = targetTime - timeMillis;
 
             try {
-                sleep(waitTime);
+                if (waitTime > 0) {
+                    sleep(waitTime);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Game Name</string>
+    <string name="app_name">Floball</string>
     <string name="preferences_name">GameNamePreferences</string>
     <string name="preferences_volume">Volume</string>
-    <string name="start_button">Start Game</string>
+    <string name="start_button">Play Game</string>
     <string name="leaderboard_button">High Scores</string>
     <string name="settings_button">Settings</string>
     <string name="payment_button">Payment</string>

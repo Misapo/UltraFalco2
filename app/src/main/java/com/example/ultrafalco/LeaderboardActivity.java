@@ -1,12 +1,15 @@
 package com.example.ultrafalco;
 
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Locale;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LeaderboardActivity extends AppCompatActivity {
 
@@ -14,17 +17,16 @@ public class LeaderboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_leaderboard);
 
+        Set<String> scores = getPreferences(MODE_PRIVATE).getStringSet("Scores", new HashSet<>());
         LinearLayout layout = findViewById(R.id.leaderboard_layout);
-            String ayushRecord = String.format(Locale.getDefault(), "%d. %s", 1, "Ayush Nair");
-            layout.addView(createLeaderboardPosition(ayushRecord));
-            String danRecord = String.format(Locale.getDefault(), "%d. %s", 2, "Daniel Cesarz");
-            layout.addView(createLeaderboardPosition(danRecord));
-        for (int i = 1; i < 10; i++) {
-            String text = String.format(Locale.getDefault(), "%d. %s", i + 1, "placeholder");
-            layout.addView(createLeaderboardPosition(text));
-        }
+
+        layout.addView(createLeaderboardPosition(getPreferences(MODE_PRIVATE).getString("hi", "nope")));
+
+        if (scores != null)
+            scores.stream().sorted().forEach(s -> layout.addView(createLeaderboardPosition(s)));
     }
     private TextView createLeaderboardPosition(String s) {
         TextView position = new TextView(this);
